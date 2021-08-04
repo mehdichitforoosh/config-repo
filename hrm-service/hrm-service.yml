@@ -3,3 +3,24 @@ server:
 spring:
   application:
     name: hrm-service
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    # Check postgresql driver in runtime maven scope
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://pgsql-db-01:5432/rondoit
+    username: postgres
+    password: postgres
+    hikari:
+      maximum-pool-size: 10
+      schema: hrm-service
+  flyway:
+    baseline: 0.0.0.0
+    schemas: hrm-service
+    locations: classpath:db/migration
+    table: db_schema_history
+    sql-migration-prefix: V
+    baseline-on-migrate: true
+    baseline-description: First Version
+    #    todo check for remove or set to true
+    #    https://stackoverflow.com/a/23778339/4377110
+    validate-on-migrate: false
